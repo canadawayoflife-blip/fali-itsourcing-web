@@ -1,7 +1,12 @@
 import { useLanguage } from '../context/LanguageContext';
 
-export function Footer() {
-  const { t } = useLanguage();
+// 1. On ajoute l'interface pour accepter la fonction onPrivacyClick
+interface FooterProps {
+  onPrivacyClick: () => void;
+}
+
+export function Footer({ onPrivacyClick }: FooterProps) {
+  const { language, t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -30,10 +35,21 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-[#00d4ff]/10 pt-8 text-center">
-          <p className="text-gray-500 text-sm">
-            © {currentYear} Fali-ITSourcing. {t('footer_rights')}
+
+        {/* 2. Partie basse avec le lien vers la Politique de Confidentialité */}
+        <div className="border-t border-[#00d4ff]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-500 text-sm text-center md:text-left">
+            © {currentYear} Fali-ITSourcing (SaaS Security). All rights reserved.
           </p>
+          
+          <button 
+            onClick={onPrivacyClick}
+            className="text-gray-500 hover:text-[#00d4ff] text-xs transition-colors underline underline-offset-4 decoration-[#00d4ff]/20"
+          >
+            {language === 'fr' 
+              ? "Mentions Légales & Confidentialité (Loi 09-08)" 
+              : "Legal Notice & Privacy Policy (Law 09-08)"}
+          </button>
         </div>
       </div>
     </footer>
