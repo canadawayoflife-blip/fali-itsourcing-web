@@ -1,4 +1,4 @@
-// 1. Ajoutez l'import de useLanguage en haut
+import { useEffect } from 'react';
 import { useLanguage } from './context/LanguageContext'; 
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -9,17 +9,48 @@ import { ContactForm } from './components/ContactForm';
 import { Footer } from './components/Footer';
 
 function App() {
-  // 2. Utilisez le langage du contexte au lieu du useState manuel
   const { language } = useLanguage(); 
 
-  // 3. On utilise "language" (qui vient du Header) pour le message
+  // --- BLOC SEO : GESTION DES MÉTAS ---
+  // Ce bloc met à jour le titre et la description du site selon la langue choisie
+  // pour attirer les clients cherchant du négoce et de la logistique IT.
+  useEffect(() => {
+    const metaData = {
+      fr: {
+        title: "Fali-ITSourcing | Sourcing, Négoce & Logistique IT pour les Zones d'Accélération Industrielle au Maroc",
+        description: "Spécialiste de l'approvisionnement en équipements IT (Cisco, Fortinet, Palo Alto, HPE, Dell). Expertise en négoce international, gestion douanière et logistique pour les Zones d'Accélération Industrielle au Maroc.",
+      },
+      en: {
+        title: "Fali-ITSourcing | IT Sourcing, Trading & Logistics for Industrial Acceleration Zones in Morocco",
+        description: "Specialist in IT equipment procurement (Cisco, Fortinet, Palo Alto, HPE). Expertise in international trading, customs management, and logistics for Industrial Acceleration Zones in Morocco.",
+      }
+    };
+
+    const current = metaData[language as 'fr' | 'en'] || metaData.fr;
+
+    // Mise à jour du titre de l'onglet
+    document.title = current.title;
+
+    // Mise à jour de la meta description pour Google
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', current.description);
+    }
+  }, [language]);
+
+
+  // --- BLOC WHATSAPP : MESSAGE PERSONNALISÉ ---
+  // Prépare le texte qui sera envoyé lors du clic sur le bouton flottant
   const whatsappMessage = language === 'fr' 
-    ? "Bonjour\n\nJ'aimerai avoir des informations complémentaires sur les services de Fali-ITsourcing.\n\nMerci de me contacter"
-    : "Hello\n\nI would like to have more information about Fali-ITsourcing services.\n\nPlease contact me";
+    ? "Bonjour\n\nJ'aimerai avoir des informations complémentaires sur les services de sourcing de Fali-ITsourcing.\n\nMerci de me contacter."
+    : "Hello\n\nI would like to have more information about Fali-ITsourcing's sourcing services.\n\nPlease contact me.";
 
   return (
     <div className="min-h-screen bg-[#1a1a1a] relative">
+      {/* Barre de navigation fixe */}
       <Header />
+      
+      {/* Contenu principal du site */}
       <main>
         <Hero />
         <PartnerLogos />
@@ -27,9 +58,12 @@ function App() {
         <About />
         <ContactForm />
       </main>
+      
+      {/* Pied de page */}
       <Footer />
 
-      {/* 4. Le lien utilise maintenant la bonne langue en temps réel */}
+      {/* --- BOUTON WHATSAPP FLOTTANT --- */}
+      {/* Configuré pour le numéro 212661847999 avec redirection sécurisée */}
       <a 
         href={`https://wa.me/212661847999?text=${encodeURIComponent(whatsappMessage)}`}
         target="_blank"
