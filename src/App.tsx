@@ -1,4 +1,4 @@
-import { useState } from 'react'; // 1. Ajoutez l'import de useState
+import { useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { PartnerLogos } from './components/PartnerLogos';
@@ -8,12 +8,12 @@ import { ContactForm } from './components/ContactForm';
 import { Footer } from './components/Footer';
 
 function App() {
-  // 2. Supposons que vous gérez la langue ici (ou via votre Header)
   const [lang, setLang] = useState('fr'); 
 
+  // Nouveau message avec retours à la ligne (\n)
   const whatsappMessage = lang === 'fr' 
-    ? "Bonjour, j'aimerais avoir des informations complémentaires sur les services de Fali-ITSourcing."
-    : "Hello, I would like to get more information regarding Fali-ITSourcing services.";
+    ? "Bonjour\n\nJ'aimerai avoir des informations complémentaires sur les services de Fali-ITsourcing.\n\nMerci de me contacter"
+    : "Hello\n\nI would like to have more information about Fali-ITsourcing services.\n\nPlease contact me";
 
   return (
     <div className="min-h-screen bg-[#1a1a1a] relative">
@@ -27,7 +27,7 @@ function App() {
       </main>
       <Footer />
 
-      {/* 3. Bouton WhatsApp Flottant */}
+      {/* Bouton WhatsApp Flottant mis à jour */}
       <a 
         href={`https://wa.me/212661847999?text=${encodeURIComponent(whatsappMessage)}`}
         target="_blank"
