@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Indique à Google où se trouve la carte de votre site
+Sitemap: https://www.fali-itsourcing.com/sitemap.xml

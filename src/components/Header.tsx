@@ -16,18 +16,19 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Section Logo Unique et Propre */}
+          {/* Section Logo - Utilise maintenant le fichier logo.svg exporté d'Inkscape */}
           <div 
             className="flex items-center cursor-pointer" 
             onClick={() => scrollToSection('home')}
           >
-            <img 
-              src="/logo.svg" 
-              alt="Fali-ITSourcing" 
-              className="h-16 w-auto object-contain transition-all hover:scale-105" 
-            />
+            <div className="relative h-20 flex items-center">
+              <img 
+                src="/logo.svg"
+                alt="Fali-ITSourcing"
+                className="h-full w-auto object-contain origin-left transition-transform duration-300 hover:scale-105"
+              />
+            </div>
           </div>
-
           <nav className="hidden md:flex items-center space-x-8">
             <button
               onClick={() => scrollToSection('home')}
